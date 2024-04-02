@@ -24,8 +24,8 @@ pipeline {
         stage("Docker login and push docker image") {
             steps {
                 withBuildConfiguration {
-                    echo ${repository_username}
-                    echo ${repository_password}
+                    sh 'echo ${repository_username}'
+                    sh 'echo ${repository_password}'
                     sh 'docker login --username ${repository_username} --password ${repository_password}'
                     sh "docker push examplenode/mgm-training-todo-app:0.0.2"
                 }
