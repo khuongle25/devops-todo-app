@@ -10,7 +10,7 @@ pipeline {
 
   stage('List Files in root Folder') {
       steps {
-        dir('views') {
+        {
           sh 'ls -la'
         }
       }
