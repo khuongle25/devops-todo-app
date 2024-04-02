@@ -34,7 +34,7 @@ pipeline {
                 withBuildConfiguration {
                     sshagent(credentials: [SSH_ID_REF]) {
                         sh '''
-                            ssh -o StrictHostKeyChecking=no ec2-18-142-136-126.ap-southeast-1.compute.amazonaws.com "docker run --detach --name khuong-todo-app -p 16673:8000 khuongle25/mgm-training-todoapp:0.0.2"
+                            ssh -o StrictHostKeyChecking=no ec2-18-142-136-126.ap-southeast-1.compute.amazonaws.com "docker run --detach --name khuong-todo-app -p 16673:8000 khuongle25/mgm-training-todo-app:0.0.2"
                         '''
                     }
                 }
