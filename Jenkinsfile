@@ -10,9 +10,7 @@ pipeline {
 
   stage('List Files in root Folder') {
       steps {
-        {
           sh 'ls -la'
-        }
       }
     }
     stage('List Files in Views Folder') {
