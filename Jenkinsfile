@@ -3,7 +3,7 @@
 import groovy.transform.Field
 
 @Field
-String DOCKER_USER_REF = 'khuongle25'
+String DOCKER_USER_REF = 'khuongle-25'
 @Field
 String SSH_ID_REF = 'b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAAAMwAAAAtzc2gtZWQyNTUxOQAAACBRQeeLmYQqD/mNKNcTjGXiSEos0PGuljesqf5yFDOrLgAAAKCdKFaFnShWhQAAAAtzc2gtZWQyNTUxOQAAACBRQeeLmYQqD/mNKNcTjGXiSEos0PGuljesqf5yFDOrLgAAAEAq65oN5sO0MmOfUcBMqcWKlnEfjjeVe3oeLts0HHRVpFFB54uZhCoP+Y0o1xOMZeJISizQ8a6WN6yp/nIUM6suAAAAF21nbS10cmFpbmluZ0BtZ20tdHAuY29tAQIDBAUG'
 
@@ -24,6 +24,8 @@ pipeline {
         stage("Docker login and push docker image") {
             steps {
                 withBuildConfiguration {
+                    echo ${repository_username}
+                    echo ${repository_password}
                     sh 'docker login --username ${repository_username} --password ${repository_password}'
                     sh "docker push examplenode/mgm-training-todo-app:0.0.2"
                 }
@@ -44,7 +46,7 @@ pipeline {
 }
 
 void withBuildConfiguration(Closure body) {
-    withCredentials([usernamePassword(credentialsId: DOCKER_USER_REF, usernameVariable: 'khuongle25', passwordVariable: 'Khuongle@25')]) {
+    withCredentials([usernamePassword(credentialsId: DOCKER_USER_REF, usernameVariable: 'repository_username', passwordVariable: 'repository_password')]) {
         body()
     }
 }
