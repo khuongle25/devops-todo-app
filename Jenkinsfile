@@ -18,16 +18,14 @@ pipeline {
         stage("build and test") {
             steps {
                 sh "ls -la"
-                sh "docker build -t examplenode/mgm-training-todo-app:0.0.2 ."
+                sh "docker build -t khuongle25/mgm-training-todo-app:0.0.2 ."
             }
         }
         stage("Docker login and push docker image") {
             steps {
-                withBuildConfiguration {
-                    sh 'echo ${repository_username}'
-                    sh 'echo ${repository_password}'
+                withBuildConfiguration {               
                     sh 'docker login --username ${repository_username} --password ${repository_password}'
-                    sh "docker push examplenode/mgm-training-todo-app:0.0.2"
+                    sh "docker push khuongle25/mgm-training-todo-app:0.0.2"
                 }
             }
         }
