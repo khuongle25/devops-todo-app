@@ -18,14 +18,14 @@ pipeline {
         stage("build and test") {
             steps {
                 sh "ls -la"
-                sh "docker build -t khuongle25/mgm-training-todo-app:0.0.2 ."
+                sh "docker build -t khuongle25/mgm-training-todo-app:0.0.3 ."
             }
         }
         stage("Docker login and push docker image") {
             steps {
                 withBuildConfiguration {               
                     sh 'docker login --username ${repository_username} --password ${repository_password}'
-                    sh "docker push khuongle25/mgm-training-todo-app:0.0.2"
+                    sh "docker push khuongle25/mgm-training-todo-app:0.0.3"
                 }
             }
         }
@@ -34,7 +34,7 @@ pipeline {
                 withBuildConfiguration {
                     sshagent(credentials: [SSH_ID_REF]) {
                         sh '''
-                            ssh -o StrictHostKeyChecking=no ec2-18-142-136-126.ap-southeast-1.compute.amazonaws.com "docker stop khuong-todo-app && docker rm khuong-todo-app && docker run --detach --name khuong-todo-app -p 8000:8000 khuongle25/mgm-training-todo-app:0.0.2"
+                            ssh -o StrictHostKeyChecking=no ec2-18-142-136-126.ap-southeast-1.compute.amazonaws.com "docker stop khuong-todo-app && docker rm khuong-todo-app && docker run --detach --name khuong-todo-app -p 8000:8000 khuongle25/mgm-training-todo-app:0.0.3"
                         '''
                     }
                 }
